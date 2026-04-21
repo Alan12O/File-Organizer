@@ -1,7 +1,7 @@
-# File Organizer 📁
 **Has descargado muchos archivos y no sabes dónde ponerlos?**
 **No mantienes orden y cuando quieres hacerlo te parece imposible?**
 TE PRESENTAMOS:
+# File Organizer 📁
 **File Organizer** es una aplicación de escritorio rápida y moderna construida con **Electron**, **React**, **TypeScript** y **Vite**. Su propósito es ayudarte a mantener tus carpetas limpias y ordenadas estructurando tus archivos de forma automática según su extensión o reglas de nombre.
 
 ## Características ✨
