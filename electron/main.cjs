@@ -26,6 +26,9 @@ function createWindow() {
   } else {
     win.loadFile(path.join(__dirname, '../dist/index.html'))
   }
+  
+  const settings = loadSettings();
+  if (settings.onTop) win.setAlwaysOnTop(true);
 }
 
 app.whenReady().then(createWindow)
@@ -34,6 +37,12 @@ app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(
 // ── Helpers ─────────────────────────────────────────────────
 const HISTORY_PATH = path.join(os.homedir(), '.file-organizer-history.json')
 const RULES_PATH   = path.join(os.homedir(), '.file-organizer-rules.json')
+const SETTINGS_PATH= path.join(os.homedir(), '.file-organizer-settings.json')
+
+function loadSettings() {
+  try { return JSON.parse(fs.readFileSync(SETTINGS_PATH, 'utf8')) } catch { return { startup: false, onTop: false } }
+}
+function saveSettings(s) { fs.writeFileSync(SETTINGS_PATH, JSON.stringify(s, null, 2)) }
 
 function loadHistory() {
   try { return JSON.parse(fs.readFileSync(HISTORY_PATH, 'utf8')) } catch { return [] }
@@ -103,6 +112,25 @@ ipcMain.handle('get-downloads', () => path.join(os.homedir(), 'Downloads'))
 ipcMain.handle('load-rules', () => loadRules())
 ipcMain.handle('save-rules', (_, rules) => { saveRules(rules); return true })
 ipcMain.handle('reset-rules', () => { const r = getDefaultRules(); saveRules(r); return r })
+
+ipcMain.handle('load-settings', () => loadSettings())
+ipcMain.handle('save-settings', (_, settings) => { 
+  saveSettings(settings)
+  
+  // App startup
+  app.setLoginItemSettings({
+    openAtLogin: settings.startup,
+    path: app.getPath('exe')
+  })
+
+  // Always on top
+  const windows = BrowserWindow.getAllWindows();
+  if (windows.length > 0) {
+    windows[0].setAlwaysOnTop(settings.onTop);
+  }
+  
+  return true 
+})
 
 ipcMain.handle('load-history', () => loadHistory())
 

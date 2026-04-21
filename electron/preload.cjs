@@ -7,6 +7,8 @@ contextBridge.exposeInMainWorld('api', {
   saveRules:     (rules)        => ipcRenderer.invoke('save-rules', rules),
   resetRules:    ()             => ipcRenderer.invoke('reset-rules'),
   loadHistory:   ()             => ipcRenderer.invoke('load-history'),
+  loadSettings:  ()             => ipcRenderer.invoke('load-settings'),
+  saveSettings:  (s)            => ipcRenderer.invoke('save-settings', s),
   preview:       (p)            => ipcRenderer.invoke('preview', p),
   organize:      (p)            => ipcRenderer.invoke('organize', p),
   undo:          (date)         => ipcRenderer.invoke('undo', date),

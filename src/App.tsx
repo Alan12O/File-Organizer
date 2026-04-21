@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import Dashboard from './pages/Dashboard'
 import RulesEditor from './pages/RulesEditor'
 import History from './pages/History'
-import { FolderOpen, Settings, History as HistoryIcon } from 'lucide-react'
+import SettingsPage from './pages/SettingsPage'
+import { FolderOpen, Settings, History as HistoryIcon, Sliders } from 'lucide-react'
 import './index.css'
 
-type Page = 'dashboard' | 'rules' | 'history'
+type Page = 'dashboard' | 'rules' | 'history' | 'settings'
 
 export default function App() {
   const [page, setPage] = useState<Page>('dashboard')
@@ -16,9 +17,10 @@ export default function App() {
   }, [])
 
   const nav = [
-    { id: 'dashboard', label: 'Organizer',  Icon: FolderOpen },
-    { id: 'rules',     label: 'Reglas',     Icon: Settings },
-    { id: 'history',   label: 'Historial',  Icon: HistoryIcon },
+    { id: 'dashboard', label: 'Organizer',     Icon: FolderOpen },
+    { id: 'rules',     label: 'Reglas',        Icon: Settings },
+    { id: 'history',   label: 'Historial',     Icon: HistoryIcon },
+    { id: 'settings',  label: 'Configuración', Icon: Sliders },
   ] as const
 
   return (
@@ -63,6 +65,7 @@ export default function App() {
         {page === 'dashboard' && <Dashboard folder={folder} setFolder={setFolder} />}
         {page === 'rules'     && <RulesEditor />}
         {page === 'history'   && <History folder={folder} />}
+        {page === 'settings'  && <SettingsPage />}
       </main>
     </div>
   )
