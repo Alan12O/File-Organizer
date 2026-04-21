@@ -10,7 +10,7 @@
         "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
         "dev:vite": "vite",
         "dev:electron": "wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .",
-        "build": "vite build && electron-builder",
+        "build": "vite build && electron-builder --publish never",
         "build:vite": "vite build"
     },
     "build": {
@@ -25,8 +25,7 @@
         ],
         "win": {
             "target": "nsis",
-            "icon": "public/icon.ico",
-            "publisherName": "Alan12O"
+            "icon": "public/icon.ico"
         },
         "nsis": {
             "oneClick": false,
