@@ -23,15 +23,18 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Electron App
-        run: npm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Vite
+        run: npm run build:vite
+
+      - name: Package Electron
+        run: npx electron-builder --win --publish never
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: File Organizer v1.0.1
-          tag_name: v1.0.1
+          name: File Organizer v1.0.2
+          tag_name: v1.0.2
           files: dist-exe/*.exe
-          body: "¡Nueva versión con opciones de configuración (Arrancar al inicio y Siempre encima)!"
+          body: "Icono minimalista estilo VS Code y nueva pantalla de Configuración."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
