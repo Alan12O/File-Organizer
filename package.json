@@ -2,6 +2,9 @@
     "name":  "file-organizer",
     "version":  "1.0.0",
     "description":  "Organizador de carpetas con UI",
+    "author": {
+        "name": "Alan12O"
+    },
     "main":  "electron/main.cjs",
     "scripts":  {
                     "dev":  "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
@@ -22,7 +25,8 @@
                             ],
                   "win":  {
                               "target":  "nsis",
-                              "icon":  "public/icon.ico"
+                              "icon":  "public/icon.ico",
+                              "publisherName": "Alan12O"
                           },
                   "nsis":  {
                                "oneClick":  false,
